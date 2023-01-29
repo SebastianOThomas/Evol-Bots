@@ -12,8 +12,10 @@ p.setGravity(0,0,-9.8)
 # add the floor
 planeId = p.loadURDF("plane.urdf")
 
+#add the robot
+robotId = p.loadURDF("body.urdf")
 # import box
-p.loadSDF("tower.sdf")
+p.loadSDF("world.sdf")
 for x in range(2000):
 	p.stepSimulation()
 	time.sleep(1/16)

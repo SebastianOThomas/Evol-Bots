@@ -1,7 +1,5 @@
 import pyrosim.pyrosim as pyrosim
 
-pyrosim.Start_SDF("tower.sdf")
-
 # default size variables
 length = 1
 width = 1
@@ -12,22 +10,25 @@ x = 0
 y = 0
 z = 0.5
 
-# for loop for tower
-for k in range(10):
-	pyrosim.Send_Cube(name="Box1", pos=[x,y,z] , size=[length, width, height])
-	# increase height by 1
-	z += 1
-			
-	# adding shrinking effect
-	length = length * 0.9
-	width = width * 0.9
-	height = height * 0.9
-	
-	for x in range(5):
-		pyrosim.Send_Cube(name="Box1", pos=[x,y,z] , size=[length, width, height])
-		x += 1
-		for y in range(5):
-			pyrosim.Send_Cube(name="Box1", pos=[x,y,z] , size=[length, width, height])
-			y += 1
+# Create world function
+def Create_World():
+	pyrosim.Start_SDF("world.sdf")
+	pyrosim.Send_Cube(name="Box", pos=[3,5,0.5] , size=[length, width, height])
+	pyrosim.End()
 
-pyrosim.End()
+# Create Robot Function 
+def Create_Robot():
+	pyrosim.Start_URDF("body.urdf")
+	# Torso code
+	pyrosim.Send_Cube(name="Torso", pos=[x,y,z] , size=[length, width, height])	
+	# Joint between torso and leg
+	pyrosim.Send_Joint( name = "Torso_Leg" , parent= "Torso" , child = "Leg" , type = "revolute", position = [?,?,?])
+	# Leg Link
+	pyrosim.Send_Cube(name="Leg", pos=[1,0,1.5] , size=[length, width, height])
+	pyrosim.End()
+
+
+# Call functions
+Create_World()
+
+Create_Robot()
