@@ -14,6 +14,7 @@ planeId = p.loadURDF("plane.urdf")
 
 #add the robot
 robotId = p.loadURDF("body.urdf")
+
 # import box
 p.loadSDF("world.sdf")
 for x in range(2000):
