@@ -21,19 +21,19 @@ def Create_Robot():
 	pyrosim.Start_URDF("body.urdf")
 	
 	# FIRST LINK TORSO
-	pyrosim.Send_Cube(name = "Torso", pos=[2,0,2] , size=[length, width, height])	
+	pyrosim.Send_Cube(name = "Torso", pos=[0,0,2] , size=[length, width, height])	
 	
 	# FIRST JOINT between TORSO and BACKLEG
-	pyrosim.Send_Joint(name = "Torso_Backleg" , parent= "Torso" , child = "Backleg" , type = "revolute", position = [1,0,1])
+	pyrosim.Send_Joint(name = "Torso_Backleg" , parent= "Torso" , child = "Backleg" , type = "revolute", position = [1,0,0.5])
 	
 	# BACKLEG
-	pyrosim.Send_Cube(name = "Backleg", pos=[0,0,0] , size=[length, width, height])
+	pyrosim.Send_Cube(name = "Backleg", pos=[0,0,0.5] , size=[length, width, height])
 	
 	# JOINT BETWEEN TORSO AND FRONTLEG
-	pyrosim.Send_Joint(name = "Torso_Frontleg" , parent = "Torso" , child = "Frontleg" , type = "revolute", position = [1,0,0])
+	pyrosim.Send_Joint(name = "Torso_Frontleg" , parent = "Torso" , child = "Frontleg" , type = "revolute", position = [-1,0,0.5])
 
 	# FRONTLEG
-	pyrosim.Send_Cube(name = "Frontleg", pos=[2,0,1] , size=[length, width, height])
+	pyrosim.Send_Cube(name = "Frontleg", pos=[0,0,0.5] , size=[length, width, height])
 	
 	pyrosim.End()
 
