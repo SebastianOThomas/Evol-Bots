@@ -19,23 +19,43 @@ def Create_World():
 # Create Robot Function 
 def Create_Robot():
 	pyrosim.Start_URDF("body.urdf")
-	
-	# FIRST LINK TORSO
-	pyrosim.Send_Cube(name = "Torso", pos=[0,0,2] , size=[length, width, height])	
-	
-	# FIRST JOINT between TORSO and BACKLEG
-	pyrosim.Send_Joint(name = "Torso_Backleg" , parent= "Torso" , child = "Backleg" , type = "revolute", position = [1,0,0.5])
-	
-	# BACKLEG
-	pyrosim.Send_Cube(name = "Backleg", pos=[0,0,0.5] , size=[length, width, height])
-	
-	# JOINT BETWEEN TORSO AND FRONTLEG
-	pyrosim.Send_Joint(name = "Torso_Frontleg" , parent = "Torso" , child = "Frontleg" , type = "revolute", position = [-1,0,0.5])
 
-	# FRONTLEG
-	pyrosim.Send_Cube(name = "Frontleg", pos=[0,0,0.5] , size=[length, width, height])
+	joint_torso_backleg_coordinates = [torso_coordinates[0]-0.5, 0, torso_coordinates[2]-(0.5*link_size[2])]
+	backLeg_coordinates = [link_size[0]*(-0.5),0,link_size[2]*(-0.5)]
+	joint_torso_frontleg_coordinates = [torso_coordinates[0]+0.5, 0, torso_coordinates[2]-(0.5*link_size[2])]
+	frontLeg_coordinates = [link_size[0]*0.5,0,link_size[2]*(-0.5)]
+
+	pyrosim.Send_Cube(name="Torso", pos=torso_coordinates , size=link_size) # absolute
+	
+	pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = joint_torso_backleg_coordinates)
+	
+	pyrosim.Send_Cube(name="BackLeg", pos=backLeg_coordinates , size=link_size)
+	
+	pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = joint_torso_frontleg_coordinates)
+	
+	pyrosim.Send_Cube(name="FrontLeg", pos=frontLeg_coordinates , size=link_size)
 	
 	pyrosim.End()
+	
+link_size = [1, 1, 1]
+torso_coordinates = [1, 0, 1.5*link_size[2]]
+	
+	# # FIRST LINK TORSO
+	# pyrosim.Send_Cube(name = "Torso", pos=[1.5, 0, 1.5] , size=[length, width, height])	
+	
+	# # FIRST JOINT between TORSO and BACKLEG
+	# pyrosim.Send_Joint(name = "Torso_Backleg" , parent= "Torso" , child = "Backleg" , type = "revolute", position = [1, 0, 1])
+	
+	# # BACKLEG
+	# pyrosim.Send_Cube(name = "Backleg", pos=[-0.5, 0, -0.5] , size=[length, width, height])
+	
+	# # JOINT BETWEEN TORSO AND FRONTLEG
+	# pyrosim.Send_Joint(name = "Torso_Frontleg" , parent = "Torso" , child = "Frontleg" , type = "revolute", position = [0.5,0,-0.5])
+
+	# # FRONTLEG
+	# pyrosim.Send_Cube(name = "Frontleg", pos=[0.5,0, -0.5] , size=[length, width, height])
+	
+	# pyrosim.End()
 
 
 # Call functions
