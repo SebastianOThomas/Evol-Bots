@@ -1,22 +1,32 @@
 import numpy
 import matplotlib.pyplot as plot
 import os
+#### SENSOR VALUES
+# load sensor values into vector
+# backLegSensorValues = numpy.zeros(1000)
+# frontLegSensorValues = numpy.zeros(1000)
 
-# load files into vector
-backLegSensorValues = numpy.zeros(100)
-frontLegSensorValues = numpy.zeros(100)
+# backLegSensorValues = numpy.load(os.path.join("data", "backLegSensorValues.npy"))
+# frontLegSensorValues = numpy.load(os.path.join("data", "frontLegSensorValues.npy"))
 
-backLegSensorValues = numpy.load(os.path.join("data", "backLegSensorValues.npy"))
-frontLegSensorValues = numpy.load(os.path.join("data", "frontLegSensorValues.npy"))
+# print(backLegSensorValues)
+# print(frontLegSensorValues)
 
-print(backLegSensorValues)
-print(frontLegSensorValues)
+# #graph stuff
+# plot.plot(backLegSensorValues, label = "Back Leg", linewidth = 5)
+# plot.plot(frontLegSensorValues, label = "Front Leg")
 
-#graph stuff
-plot.plot(backLegSensorValues, label = "Back Leg", linewidth = 5)
-plot.plot(frontLegSensorValues, label = "Front Leg")
+# #legends
+# plot.legend(loc = "upper right")
+# #graph
+#plot.show()
 
-#legends
-plot.legend(loc = "upper right")
-#graph
+
+#### TARGET ANGLES
+# load values into vector
+targetAngles = numpy.zeros(1000)
+targetAngles = numpy.load(os.path.join("data", "targetAngles.npy"))
+#plot
+plot.plot(targetAngles, numpy.sin(targetAngles))
+plot.axis("tight")
 plot.show()

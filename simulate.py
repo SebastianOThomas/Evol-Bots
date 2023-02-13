@@ -5,6 +5,7 @@ import pyrosim.pyrosim as pyrosim
 import numpy
 import os
 import random as random
+import math
 
 physicsClient = p.connect(p.GUI)
 
@@ -28,6 +29,15 @@ backLegSensorValues = numpy.zeros(1000)
 # frontleh numpy vector
 frontLegSensorValues = numpy.zeros(1000)
 
+# sinusoidally varying values
+# targetAngles = numpy.linspace(-0.78539816339, 0.78539816339, 201)
+targetAngles = numpy.linspace(0, numpy.pi*2, 201)
+print(len(targetAngles))
+
+# save target angle values to file
+numpy.save(os.path.join("data", "targetAngles.npy"), targetAngles)
+
+exit()
 
 # import box
 p.loadSDF("world.sdf")
@@ -42,23 +52,24 @@ for i in range(1000):
 
 	# motors for joints
 	#backleg
-	# 1.57079632679 ==  pi/2.0 & 
-	# -1.57079632679 == -pi/2.0
 	pyrosim.Set_Motor_For_Joint(bodyIndex = robotId, jointName = b'Torso_BackLeg', 
-	controlMode = p.POSITION_CONTROL, targetPosition = random.uniform(-1.57079632679, 1.57079632679), maxForce = 25)
+	controlMode = p.POSITION_CONTROL, targetPosition = random.uniform(-1.57079632679, 1.57079632679), 
+	maxForce = 25)
 
 	#front leg
 	# 1.57079632679 ==  pi/2.0 & 
 	# -1.57079632679 == -pi/2.0
 	pyrosim.Set_Motor_For_Joint(bodyIndex = robotId, jointName = b'Torso_FrontLeg', 
-	controlMode = p.POSITION_CONTROL, targetPosition = random.uniform(-1.57079632679, 1.57079632679), maxForce = 25)
+	controlMode = p.POSITION_CONTROL, targetPosition = random.uniform(-1.57079632679, 1.57079632679), 
+	maxForce = 25)
 	
-	time.sleep(1/10)
+	time.sleep(1/240)
 	print(backLegSensorValues)
 
-#save values to file
+#save leg sensor values to file
 numpy.save(os.path.join("data", "backLegSensorValues.npy"), backLegSensorValues)
 numpy.save(os.path.join("data", "frontLegSensorValues.npy"), frontLegSensorValues)
+
 
 p.disconnect()
 
