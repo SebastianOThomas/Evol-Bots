@@ -24,9 +24,21 @@ import os
 
 #### TARGET ANGLES
 # load values into vector
-targetAngles = numpy.zeros(1000)
-targetAngles = numpy.load(os.path.join("data", "targetAngles.npy"))
+# targetAngles = numpy.zeros(1000)
+# targetAngles = numpy.load(os.path.join("data", "targetAngles.npy"))
+# #plot
+# plot.plot(numpy.arange(len(targetAngles)), targetAngles, label = "target angles")
+# plot.xlabel("Steps")
+# plot.ylabel("Value in Radians")
+# plot.legend()
+
+# plot.show()
+
+#### SECOND VEC WITH AMPLITUDE FREQUENCY AND OFFSET
+secondTargetAngles = numpy.zeros(1000)
+secondTargetAngles = numpy.load(os.path.join("data", "secondTargetAngles.npy"))
+
 #plot
-plot.plot(targetAngles, numpy.sin(targetAngles))
-plot.axis("tight")
+secondTargetAngles
+plot.plot(numpy.arange(len(secondTargetAngles)), secondTargetAngles, label = "secondTargetAngles")
 plot.show()
