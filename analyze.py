@@ -35,10 +35,10 @@ import os
 # plot.show()
 
 #### SECOND VEC WITH AMPLITUDE FREQUENCY AND OFFSET
-secondTargetAngles = numpy.zeros(1000)
-secondTargetAngles = numpy.load(os.path.join("data", "secondTargetAngles.npy"))
+targetAnglesFrontLeg = numpy.load(os.path.join("data", "targetAnglesFrontLeg.npy"))
+targetAnglesBackLeg = numpy.load(os.path.join("data", "targetAnglesBackLeg.npy"))
 
 #plot
-secondTargetAngles
-plot.plot(numpy.arange(len(secondTargetAngles)), secondTargetAngles, label = "secondTargetAngles")
+plot.plot(numpy.arange(len(targetAnglesFrontLeg)), targetAnglesFrontLeg, label = "targetAnglesFrontLeg")
+plot.plot(numpy.arange(len(targetAnglesBackLeg)), targetAnglesBackLeg, label = "targetAnglesBackLeg")
 plot.show()
