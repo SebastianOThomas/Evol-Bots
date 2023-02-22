@@ -8,10 +8,12 @@ import random as random
 import math
 import constants as c
 from simulation import SIMULATION
+from sensor import SENSOR
 
-
+# call the simulation class
 simulation = SIMULATION()
 
-# p.disconnect()
+#call run function 
+simulation.RUN()
 
 

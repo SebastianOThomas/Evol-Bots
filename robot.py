@@ -1,7 +1,4 @@
 #robot
-import sensor as SENSORS 
-import motor as MOTORS
-import generate
 import pybullet as p
 import time
 import pybullet_data
@@ -11,47 +8,36 @@ import os
 import random as random
 import math
 import constants as c
+from sensor import SENSOR
+from motor import MOTOR
 
 class ROBOT:
-    def __init__(self, robotId):
-        self.sensors = {}
-        self.motors = {}
 
+    def __init__(self):
         #add the robot
-        self.robotId = robotId
+        self.robotId = p.loadURDF("body.urdf")
+        # additional pyrosim setup
+        pyrosim.Prepare_To_Simulate(self.robotId)
+        self.Prepare_To_Sense()
+        self.Prepare_To_Act()
 
-        # backleh numpy vector
-        backLegSensorValues = numpy.zeros(c.length)
+    #prep to sense method
+    def Prepare_To_Sense(self):
+        self.sensors = {}
+        for linkName in pyrosim.linkNamesToIndices:
+            self.sensors[linkName] = SENSOR(linkName)
 
-        # frontleh numpy vector
-        frontLegSensorValues = numpy.zeros(c.length)
+    # sense method        
+    def Sense(self, t):
+        for i in self.sensors:
+            self.sensors[i].Get_Value(t) 
+    
+    # prep to act
+    def Prepare_To_Act(self):
+        self.motors = {}
+        for jointName in pyrosim.jointNamesToIndices:
+            self.motors[jointName] = MOTOR(jointName)
 
-        # sinusoidally varying values
-        numpyStuff = numpy.linspace(0, numpy.pi*2, c.length)
-
-        targetAnglesBackLeg = numpy.array(c.amplitudeBackLeg * numpy.sin(c.frequencyBackLeg * numpyStuff + c.phaseOffsetBackLeg))
-        targetAnglesFrontLeg = numpy.array(c.amplitudeFrontLeg * numpy.sin(c.frequencyFrontLeg * numpyStuff + c.phaseOffsetFrontLeg))
-
-        # for loop for simulation
-        for i in range(c.length):
-            p.stepSimulation()
-
-        	#backleg sensor
-            backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
-
-        	#frontleg sensor
-            frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
-
-        	# motors for joints
-        	#backleg
-            pyrosim.Set_Motor_For_Joint(bodyIndex = self.robotId, jointName = b'Torso_BackLeg', controlMode = p.POSITION_CONTROL, targetPosition = targetAnglesBackLeg[i], maxForce = 25)
-
-        	#front leg
-        	# 1.57079632679 ==  pi/2.0 & 
-            # -1.57079632679 == -pi/2.0
-            pyrosim.Set_Motor_For_Joint(bodyIndex = self.robotId, jointName = b'Torso_FrontLeg', controlMode = p.POSITION_CONTROL, targetPosition = targetAnglesFrontLeg[i], maxForce = 25)
-            
-            time.sleep(c.time)
-
-       
-
+    def Act(self, t):
+        for i in self.motors:
+            self.motors[i].Set_Value(t, self.robotId)
