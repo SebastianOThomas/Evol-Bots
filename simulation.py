@@ -34,10 +34,11 @@ class SIMULATION:
         for i in range(c.length):
             p.stepSimulation()
             self.robot.Sense(i)
+            self.robot.Think()
             self.robot.Act(i)
 
             time.sleep(c.time)
-            print(i)
+            #print(i)
 
     # deconstructor
     def __del__(self):

@@ -4,6 +4,12 @@ import numpy
 # Variables 
 length = 1000
 force = 25
+ZERO = 0 
+time = 1/240
+
+amplitude = (numpy.pi/4)
+frequency = 10
+phaseOffset = 5
 
 # AFP for front leg
 amplitudeFrontLeg = (numpy.pi/4)

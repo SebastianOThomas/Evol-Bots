@@ -19,8 +19,9 @@ class SENSOR:
     def Get_Value(self, t):
         #backleg sensor
         self.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)
-        print(self.values)
+        #print(self.values)
 
     def Save_Values(self): #change later if needed
-        numpy.save(os.path.join("data", "backLegSensorValues.npy"), backLegSensorValues)
-        numpy.save(os.path.join("data", "frontLegSensorValues.npy"), frontLegSensorValues)
+        #numpy.save(os.path.join("data", "backLegSensorValues.npy"), backLegSensorValues)
+        #numpy.save(os.path.join("data", "frontLegSensorValues.npy"), frontLegSensorValues)
+        pass

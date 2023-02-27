@@ -31,14 +31,14 @@ class MOTOR:
         numpyStuff = numpy.linspace(0, numpy.pi*2, c.length)
         self.targetAngles = numpy.array(self.amplitude * numpy.sin(self.frequency * numpyStuff + self.offset))
 
-    def Set_Value(self, t, ID):
+    def Set_Value(self, desiredAngle, ID):
         # motors for joints
     	#backleg
         pyrosim.Set_Motor_For_Joint(
           bodyIndex = ID, 
           jointName = self.jointName, 
           controlMode = p.POSITION_CONTROL, 
-          targetPosition = self.targetAngles[t], 
+          targetPosition = self.targetAngles[desiredAngle], 
           maxForce = 25)
 
         def Save_Values(self):
