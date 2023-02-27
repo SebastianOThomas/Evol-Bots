@@ -16,8 +16,8 @@ def Create_World():
 	pyrosim.Send_Cube(name="Box", pos=[3,5,0.5] , size=[length, width, height])
 	pyrosim.End()
 
-# Create Robot Function 
-def Create_Robot():
+# Generate Body Function 
+def Generate_Body():
 	pyrosim.Start_URDF("body.urdf")
 
 	joint_torso_backleg_coordinates = [torso_coordinates[0]-0.5, 0, torso_coordinates[2]-(0.5*link_size[2])]
@@ -27,7 +27,7 @@ def Create_Robot():
 
 	pyrosim.Send_Cube(name="Torso", pos=torso_coordinates , size=link_size) # absolute
 	
-	pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = joint_torso_backleg_coordinates)
+	pyrosim.Send_Joint(name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = joint_torso_backleg_coordinates)
 	
 	pyrosim.Send_Cube(name="BackLeg", pos=backLeg_coordinates , size=link_size)
 	
@@ -36,29 +36,23 @@ def Create_Robot():
 	pyrosim.Send_Cube(name="FrontLeg", pos=frontLeg_coordinates , size=link_size)
 	
 	pyrosim.End()
+
+# generate brain function
+def Generate_Brain():
+	pyrosim.Start_NeuralNetwork("brain.nndf")
+	
+	pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
+
+	
+	pyrosim.End()
 	
 link_size = [1, 1, 1]
 torso_coordinates = [1, 0, 1.5*link_size[2]]
 	
-	# # FIRST LINK TORSO
-	# pyrosim.Send_Cube(name = "Torso", pos=[1.5, 0, 1.5] , size=[length, width, height])	
-	
-	# # FIRST JOINT between TORSO and BACKLEG
-	# pyrosim.Send_Joint(name = "Torso_Backleg" , parent= "Torso" , child = "Backleg" , type = "revolute", position = [1, 0, 1])
-	
-	# # BACKLEG
-	# pyrosim.Send_Cube(name = "Backleg", pos=[-0.5, 0, -0.5] , size=[length, width, height])
-	
-	# # JOINT BETWEEN TORSO AND FRONTLEG
-	# pyrosim.Send_Joint(name = "Torso_Frontleg" , parent = "Torso" , child = "Frontleg" , type = "revolute", position = [0.5,0,-0.5])
-
-	# # FRONTLEG
-	# pyrosim.Send_Cube(name = "Frontleg", pos=[0.5,0, -0.5] , size=[length, width, height])
-	
-	# pyrosim.End()
 
 
 # Call functions
 Create_World()
+Generate_Body()
+Generate_Brain()
 
-Create_Robot()
