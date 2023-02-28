@@ -6,6 +6,8 @@ import pyrosim.pyrosim as pyrosim
 
 import pyrosim.constants as c
 
+import constants as con
+
 class NEURON: 
 
     def __init__(self,line):
