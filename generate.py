@@ -17,7 +17,7 @@ def Create_World():
 	pyrosim.End()
 
 # Generate Body Function 
-def Generate_Body():
+def Generate_Body(torso_coordinates, link_size):
 	pyrosim.Start_URDF("body.urdf")
 
 	joint_torso_backleg_coordinates = [torso_coordinates[0]-0.5, 0, torso_coordinates[2]-(0.5*link_size[2])]
