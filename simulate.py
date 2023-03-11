@@ -16,4 +16,6 @@ simulation = SIMULATION()
 #call run function 
 simulation.RUN()
 
+simulation.Get_Fitness()
+
 

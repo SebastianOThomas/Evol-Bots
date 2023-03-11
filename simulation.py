@@ -39,6 +39,8 @@ class SIMULATION:
 
             time.sleep(c.time)
             #print(i)
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
 
     # deconstructor
     def __del__(self):
