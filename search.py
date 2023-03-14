@@ -4,7 +4,9 @@ from hillclimber import HILL_CLIMBER
 
 hc = HILL_CLIMBER()
 
-ev = hc.Evolve()
+hc.Evolve()
+hc.Show_Best()
+
 
 
 # for i in range(5):

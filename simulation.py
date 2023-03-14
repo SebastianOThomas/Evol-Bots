@@ -12,9 +12,14 @@ import math
 import constants as c
 
 class SIMULATION:
-    def __init__(self):
-        #create simulation 
-        physicsClient = p.connect(p.GUI)
+    def __init__(self, directOrGUI):
+        #create simulation
+        self.directOrGUI = directOrGUI
+        if (directOrGUI == "DIRECT"):
+            self.physicsClient = p.connect(p.DIRECT)
+        else:
+            self.physicsClient = p.connect(p.GUI)
+         
         p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,-9.8)  # add gravity
@@ -29,6 +34,11 @@ class SIMULATION:
         # prep bot to sense
         ROBOT.Prepare_To_Sense(self)
 
+    # deconstructor
+    def __del__(self):
+        p.disconnect()
+
+
     def RUN(self):
          # for loop for simulation
         for i in range(c.length):
@@ -38,13 +48,11 @@ class SIMULATION:
             self.robot.Act(i)
 
             time.sleep(c.time)
-            #print(i)
+
     def Get_Fitness(self):
         self.robot.Get_Fitness()
 
-    # deconstructor
-    def __del__(self):
-        p.disconnect()
+    
             
 
 
