@@ -12,7 +12,7 @@ import math
 import constants as c
 
 class SIMULATION:
-    def __init__(self, directOrGUI):
+    def __init__(self, directOrGUI, solutionID):
         #create simulation
         self.directOrGUI = directOrGUI
         if (directOrGUI == "DIRECT"):
@@ -23,12 +23,9 @@ class SIMULATION:
         p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,-9.8)  # add gravity
-        self.world = WORLD()
-        self.robot = ROBOT()
 
-
-        
-        self.world = p.loadSDF("world.sdf")
+        self.world = WORLD(solutionID)
+        self.robot = ROBOT(solutionID)
        
        
         # prep bot to sense

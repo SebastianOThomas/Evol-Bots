@@ -10,8 +10,10 @@ import math
 import constants as c
 
 class WORLD:
-    def __init__(self):
+    def __init__(self, solutionID):
         # import box
-        self.world = p.loadSDF("world.sdf")
-        # add the floor
         self.planeId = p.loadURDF("plane.urdf")
+        # add the floor
+        p.loadSDF("world" + solutionID + ".sdf")
+        
+      

@@ -15,10 +15,35 @@ from pyrosim.neuralNetwork import NEURAL_NETWORK
 
 class SOLUTION:
     
-    def __init__(self):
+    def __init__(self, myID):
+        self.myID = myID
         self.weights = numpy.random.rand(3, 2)
         self.weights = self.weights * 2 - 1
 
+
+    def Set_ID(self, myID):
+        self.myID = myID
+
+
+    def Start_Simulation(self, directOrGUI):
+        self.Create_World()
+        self.Create_Body()
+        self.Create_Brain()
+        string = "python3 simulate.py " + directOrGUI + " " + str(self.myID)
+        os.system(string)
+
+
+    def Wait_For_Simulation_To_End(self):
+        fitnessFileName = "fitness" + str(self.myID) + ".txt"
+        while not os.path.exists(fitnessFileName):
+            time.sleep(0.01)
+        time.sleep(0.01)
+        fitness = open(fitnessFileName, "r")
+        self.fitness = float(fitness.read())
+        fitness.close()
+        os.system("rm " + fitnessFileName)
+
+    
     def Mutate(self):
         randomRow = random.randint(0, 2)
         randomColumn = random.randint(0, 1)
@@ -28,7 +53,7 @@ class SOLUTION:
 
     def Evaluate(self, view):
         file = "python3 simulate.py " + view
-        os.system(file)
+        os.system("python3 simulate.py " + view + " &")
         f = open("fitness.txt","r")
         self.fitness = float(f.read())
         f.close()
@@ -40,13 +65,13 @@ class SOLUTION:
         width = 1
         height = 1
 
-        pyrosim.Start_SDF("world.sdf")
+        pyrosim.Start_SDF("world" + str(self.myID) + ".sdf")
         pyrosim.Send_Cube(name="Box", pos=[3,5,0.5] , size=[length, width, height])
         pyrosim.End()
 
     # Create Body Function 
     def Create_Body(self):
-        pyrosim.Start_URDF("body.urdf")
+        pyrosim.Start_URDF("body" + str(self.myID) + ".urdf")
 
         # self.joint_torso_backleg_coordinates = [torso_coordinates[0]-0.5, 0, torso_coordinates[2]-(0.5*link_size[2])]
         # self.backLeg_coordinates = [link_size[0]*(-0.5),0,link_size[2]*(-0.5)]
@@ -67,7 +92,7 @@ class SOLUTION:
 
     # generate brain function
     def Create_Brain(self):
-        pyrosim.Start_NeuralNetwork("brain.nndf")
+        pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
 
         # send sensor neurons
         pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")

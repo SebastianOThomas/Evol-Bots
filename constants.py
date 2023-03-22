@@ -6,9 +6,9 @@ length = 1000
 force = 25
 ZERO = 0 
 time = 1/240
-numberOfGenerations = 3 
 gravity = -9.8
-populationSize = 2
+numberOfGenerations = 10 
+populationSize = 10
 
 amplitude = (numpy.pi/4)
 frequency = 10

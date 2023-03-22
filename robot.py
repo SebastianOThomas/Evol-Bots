@@ -14,16 +14,17 @@ from pyrosim.neuralNetwork import NEURAL_NETWORK
 
 class ROBOT:
 
-    def __init__(self):
+    def __init__(self, solutionID):
+        self.solutionID = solutionID
         #add the robot
-        self.robotId = p.loadURDF("body.urdf")
+        self.robotId = p.loadURDF("body" + self.solutionID + ".urdf")
         # additional pyrosim setup
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
 
         #create neural network
-        self.nn = NEURAL_NETWORK("brain.nndf")
+        self.nn = NEURAL_NETWORK("brain" + self.solutionID + ".nndf")
 
     #prep to sense method
     def Prepare_To_Sense(self):
@@ -56,17 +57,11 @@ class ROBOT:
         #self.nn.Print()
 
     def Get_Fitness(self):
-        #tuple of states
-        stateOfLinkZero = p.getLinkState(self.robotId,0)
-        # x,y,z coords of tuple[0]
+        stateOfLinkZero = p.getLinkState(self.robotId, 0)
         positionOfLinkZero = stateOfLinkZero[0]
-        # x position in first tuple element
         xCoordinateOfLinkZero = positionOfLinkZero[0]
-        # Write to file
-        file = open("fitness.txt", "w")
-        file.write(str(xCoordinateOfLinkZero))
-        file.close()
-
-        #TODO: WRITE xCoordinateOfLinkZero to file (fitness.txt).
-        # make sure to convert xCoordinateOfLinkZero from a string into an integer using str()
+        tempFitness = open("tmp" + self.solutionID + ".txt", "w")
+        tempFitness.write(str(xCoordinateOfLinkZero))
+        tempFitness.close()
+        os.system("mv tmp" + self.solutionID + ".txt" " fitness" + self.solutionID + ".txt")
         
