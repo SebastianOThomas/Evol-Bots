@@ -56,7 +56,7 @@ class ROBOT:
         #self.nn.Print()
 
     def Get_Fitness(self):
-        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
         basePosition = basePositionAndOrientation[0]
         xCoordinateOfLinkZero = basePosition[0]
         tempFitness = open("tmp" + self.solutionID + ".txt", "w")

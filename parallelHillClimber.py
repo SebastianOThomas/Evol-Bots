@@ -38,9 +38,9 @@ class PARALLEL_HILL_CLIMBER:
 
 
     def Show_Best(self):
-        currentFitness = 100
+        currentFitness = -1000
         for key in self.parents:
-            if self.parents[key].fitness < currentFitness:
+            if self.parents[key].fitness > currentFitness:
                 bestKey = key
                 currentFitness = self.parents[key].fitness
         self.parents[bestKey].Start_Simulation("GUI")
