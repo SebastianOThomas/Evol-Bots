@@ -7,11 +7,11 @@ force = 25
 ZERO = 0 
 time = 1/240
 gravity = -9.8
-numberOfGenerations = 5
-populationSize = 5
-numSensorNeurons = 5
-numMotorNeurons = 8
-motorJointRange = 0.2
+numberOfGenerations = 2
+populationSize = 2
+numSensorNeurons = 6
+numMotorNeurons = 12
+motorJointRange = 0.5
 
 amplitude = (numpy.pi/4)
 frequency = 10
