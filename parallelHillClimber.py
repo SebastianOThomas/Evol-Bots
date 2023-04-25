@@ -34,6 +34,7 @@ class PARALLEL_HILL_CLIMBER:
         self.Evaluate(self.parents)
         for currentGeneration in range(c.numberOfGenerations):
             # current generations = 2
+            self.currentGeneration = currentGeneration
             self.Evolve_For_One_Generation()
 
 
@@ -81,3 +82,9 @@ class PARALLEL_HILL_CLIMBER:
             for key in self.parents:
                 print("Parent:", self.parents[key].fitness, "Child:", self.children[key].fitness)
             print()
+
+
+    def Matrix(self):
+        print(self.abmatrix)
+        numpy.savetxt("Fitness_Values_Octo", self.abmatrix, delimiter = ',' , fmt='%1.4e')
+        numpy.save("Fitness_Values_Octo", self.abmatrix, delimiter = ',' , fmt='%1.4e')
