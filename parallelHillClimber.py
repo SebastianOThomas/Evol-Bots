@@ -25,6 +25,9 @@ class PARALLEL_HILL_CLIMBER:
         self.parents = {}
         self.nextAvailableID = 0
 
+        abmatrix = numpy.zeros((c.numberOfGenerations, c.populationSize))
+        self.abmatrix = abmatrix
+
         for i in range(0, c.populationSize):
             self.parents[i] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID += 1
@@ -39,9 +42,9 @@ class PARALLEL_HILL_CLIMBER:
 
 
     def Show_Best(self):
-        currentFitness = -1000
+        currentFitness = 10
         for key in self.parents:
-            if self.parents[key].fitness > currentFitness:
+            if self.parents[key].fitness < currentFitness:
                 bestKey = key
                 currentFitness = self.parents[key].fitness
         self.parents[bestKey].Start_Simulation("GUI")
@@ -80,11 +83,11 @@ class PARALLEL_HILL_CLIMBER:
 
     def Print(self):
             for key in self.parents:
-                print("Parent:", self.parents[key].fitness, "Child:", self.children[key].fitness)
+                self.abmatrix[key, self.currentGeneration] = self.parents[key].fitness
             print()
 
 
     def Matrix(self):
         print(self.abmatrix)
-        numpy.savetxt("Fitness_Values_Octo", self.abmatrix, delimiter = ',' , fmt='%1.4e')
-        numpy.save("Fitness_Values_Octo", self.abmatrix, delimiter = ',' , fmt='%1.4e')
+        numpy.savetxt("Fitness Values Hexa", self.abmatrix)
+        numpy.save("Fitness Values Hexa", self.abmatrix)
